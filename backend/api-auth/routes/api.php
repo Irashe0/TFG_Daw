@@ -12,6 +12,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\CineController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('peliculas', PeliculaController::class);
@@ -26,3 +27,4 @@ Route::apiResource('roles', RoleController::class);
 Route::apiResource('salas', SalaController::class);
 Route::apiResource('usuarios', UsuarioController::class);
 Route::apiResource('ventas', VentaController::class);
+Route::apiResource('cines', CineController::class);
