@@ -39,7 +39,7 @@ class DirectorController extends Controller
             return response()->json(['message' => 'Director no encontrado'], 404);
         }
 
-        $validated = $request->validate([
+        $validated = $request->validate([ 
             'nombre' => 'required|string|max:100',
             'apellidos' => 'nullable|string|max:100',
         ]);
