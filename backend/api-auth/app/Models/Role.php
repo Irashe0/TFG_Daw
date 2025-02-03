@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,11 +10,11 @@ class Role extends Model
 
     protected $fillable = [
         'id_rol',
-        'nombre_rol',
+        'nombre_rol',  
     ];
 
     public function usuarios()
     {
-        return $this->hasMany(Usuario::class);
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
     }
 }
