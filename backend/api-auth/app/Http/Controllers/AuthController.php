@@ -14,35 +14,35 @@ class AuthController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'nombre_usuario' => 'required|string|max:255|unique:users',  
-                'email' => 'required|email|unique:users', 
-                'password' => 'required|string|min:6',  
-                'roles' => 'required|array',  
-                'roles.*' => 'exists:roles,nombre_rol', 
+                'nombre_usuario' => 'required|string|max:255|unique:users',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|string|min:6',
+                'roles' => 'required|array',
+                'roles.*' => 'exists:roles,name',  // Aquí cambiamos 'nombre_rol' por 'name'
             ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'mensaje' => 'Faltan campos por rellenar o los campos no son válidos',
-                'errores' => $e->errors()  
+                'errores' => $e->errors()
             ], 422);
         }
 
         if (User::where('nombre_usuario', $request->nombre_usuario)->exists()) {
             return response()->json(['mensaje' => 'El usuario ya está registrado'], 409);
         }
-        
+
         $user = User::create([
-            'nombre_usuario' => $request->nombre_usuario, 
-            'email' => $request->email, 
+            'nombre_usuario' => $request->nombre_usuario,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $roles = Role::whereIn('nombre_rol', $request->roles)->get();
+        $roles = Role::whereIn('name', $request->roles)->get();
 
-        if (!$roles->contains('nombre_rol', 'usuario')) {
-            $usuarioRol = Role::where('nombre_rol', 'usuario')->first();
+        if (!$roles->contains('name', 'usuario')) {
+            $usuarioRol = Role::where('name', 'usuario')->first();
             if ($usuarioRol) {
-                $roles->push($usuarioRol); 
+                $roles->push($usuarioRol);
             }
         }
 
@@ -51,7 +51,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Usuario registrado con éxito.',
             'user' => $user,
-            'roles' => $roles->pluck('nombre_rol'), 
+            'roles' => $roles->pluck('name'),
         ], 201);
     }
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'nombre_usuario' => 'required|string',  
+            'nombre_usuario' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -77,7 +77,7 @@ class AuthController extends Controller
             'message' => 'Inicio de sesión exitoso',
             'token' => $token,
             'user' => $user,
-            'roles' => $user->roles->pluck('nombre_rol'),  
+            'roles' => $user->roles->pluck('name'),
         ], 200);
     }
 
