@@ -18,7 +18,7 @@ class AuthController extends Controller
                 'email' => 'required|email|unique:users',
                 'password' => 'required|string|min:6',
                 'roles' => 'required|array',
-                'roles.*' => 'exists:roles,name',  // Aquí cambiamos 'nombre_rol' por 'name'
+                'roles.*' => 'exists:roles,name',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
