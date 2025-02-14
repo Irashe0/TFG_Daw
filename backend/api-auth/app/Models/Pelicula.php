@@ -42,7 +42,8 @@ class Pelicula extends Model
 		'sinopsis',
 		'duracion',
 		'clasificacion',
-		'productora'
+		'productora',
+		'imagen'
 	];
 
 	public function director()
