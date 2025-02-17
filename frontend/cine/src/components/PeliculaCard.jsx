@@ -8,7 +8,7 @@ const MovieCard = ({ id, title, posterUrl, rating, trailerUrl }) => {
     <div className="relative group overflow-hidden rounded-md shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 w-48">
       <img 
         className="w-full h-60 object-cover"
-        src={posterUrl || "/placeholder.svg"} 
+        src={posterUrl || "./assets/placeholder.svg"} 
         alt={`${title} poster`} 
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
