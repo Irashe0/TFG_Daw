@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-const ImageCarousel = ({ images, interval = 16000 }) => {
+const ImageCarousel = ({ images, interval = 200000000000 }) => { // Cambié el valor del intervalo a 20000ms (20 segundos)
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Para habilitar el deslizamiento táctil
+  const handleSwipe = (direction) => {
+    if (direction === 'left') {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    } else if (direction === 'right') {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -16,7 +25,14 @@ const ImageCarousel = ({ images, interval = 16000 }) => {
   };
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden"> 
+    <div
+      className="relative w-full h-[300px] sm:h-[200px] md:h-[300px] lg:h-[400px] xl:h-[500px] overflow-hidden"
+      onTouchStart={(e) => (this.touchStart = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (this.touchStart - e.changedTouches[0].clientX > 50) handleSwipe('left'); 
+        if (this.touchStart - e.changedTouches[0].clientX < -50) handleSwipe('right'); 
+      }}
+    >
       <div
         className="flex transition-all ease-in-out duration-1000"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -26,13 +42,14 @@ const ImageCarousel = ({ images, interval = 16000 }) => {
             <img
               src={image}
               alt={`slide-${index}`}
-              className="w-full h-full object-fit"  
+              className="w-full h-full object-cover"
             />
           </div>
         ))}
       </div>
 
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      {/* Puntos de paginación, solo en pantallas grandes */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10 hidden sm:flex">
         {images.map((_, index) => (
           <div
             key={index}
