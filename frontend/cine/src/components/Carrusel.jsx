@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ImageCarousel = ({ images, interval = 3000 }) => {
+const ImageCarousel = ({ images, interval = 16000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((image, index) => (
-          <div key={index} className="w-full h-500 flex-shrink-0">
+          <div key={index} className="w-full flex-shrink-0">
             <img
               src={image}
               alt={`slide-${index}`}
-              className="w-full h-full object-contain"  
+              className="w-full h-full object-fit"  
             />
           </div>
         ))}

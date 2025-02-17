@@ -51,7 +51,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('cines', CineController::class)->except(['store']);
     Route::apiResource('peliculas', PeliculaController::class)->except(['store', 'update']);
 
-    Route::any('palomitas', function () {
-        return response()->json(['message' => 'Acceso denegado'], 403);
-    });
 });

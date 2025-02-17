@@ -1,100 +1,74 @@
-import React, { useState } from 'react';
-import logo from '../assets/LogoProvisional.png';
+"use client"
 
-const Header = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
+import { useState } from "react"
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+export default function Navbar() {
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
 
     return (
-        <header className="bg-gradient-to-b from-black to-transparent text-white py-4 dark:bg-gradient-to-b dark:from-black-800 dark:to-transparent dark:text-gray-100 px-4 fixed top-0 left-0 right-0 z-50"> {/* Fixed y z-index para que flote */}
-            <div className="container mx-auto flex items-center justify-between px-4">
+        <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black to-transparent">
+            <div className="flex justify-between items-center h-16 px-6">
+                {/* Logo */}
+                <a href="/" className="text-2xl font-bold text-white-300 hover:text-[var(--principal)]" >
+                    CineLuxe
+                </a>
 
-                <div className="flex items-center space-x-2 justify-start">
-                    <img src={logo} alt="CineLuxe Logo" className="h-10 w-auto" />
-                    {/* Logo de texto en desktop */}
-                    <div className="hidden lg:block text-3xl font-bold">CineLuxe</div>
-                </div>
+                {/* Navegación */}
+                <nav className="flex space-x-6">
+                    {["Cines", "Cartelera"].map((item) => (
+                        <a
+                            key={item}
+                            href="#"
+                            className="relative text-white hover:text-[var(--principal)] group"
+                        >
+                            {item}
+                            <span className="absolute bottom-[-12px] left-0 block w-0 h-[2px] bg-yellow-500 transition-all duration-300 group-hover:w-full group-focus:w-full group-focus:bg-gold-500 group-focus:transition-all"></span>
+                        </a>
+                    ))}
+                </nav>
 
-                {/* Barra de búsqueda en pantallas grandes */}
-                <div className="hidden lg:flex flex-grow justify-center items-center">
-                    <input
-                        type="text"
-                        placeholder="Buscar..."
-                        className="px-4 py-2 rounded-full w-1/2 focus:outline-none dark:bg-gray-700 dark:text-white"
-                        style={{
-                            backgroundColor: "var(--lavender-mist)", // Usando la variable
-                            color: "var(--light-slate-gray)", // Usando la variable
-                        }}
-                    />
-                </div>
+                {/* Search + Login */}
+                <div className="flex items-center space-x-4">
+                    {/* Search Bar con Click */}
+                    <div className="relative">
+                        <button
+                            onClick={() => setIsSearchOpen(!isSearchOpen)}
+                            className="p-2 text-white hover:text-[var(--principal)] transition-all duration-300"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                />
+                            </svg>
+                        </button>
 
-                {/* Menú de opciones (Cines, Cartelera, Tickets) a la derecha de la barra de búsqueda */}
-                <div className="hidden lg:flex space-x-8 ml-auto"> {/* ml-auto para alinear a la derecha */}
-                    <a href="/cines" className="text-white hover:text-[var(--indigo)] px-3 py-2 transition-colors">Cines</a>
-                    <a href="/cartelera" className="text-white hover:text-[var(--indigo)] px-3 py-2 transition-colors">Cartelera</a>
-                    <a href="/tickets" className="text-white hover:text-[var(--indigo)] px-3 py-2 transition-colors">Tickets</a>
-                </div>
+                        {/* Input de búsqueda que se despliega */}
+                        <input
+                            type="text"
+                            placeholder="Buscar películas..."
+                            className={`absolute top-1/2 right-10 -translate-y-1/2 px-2 py-1 text-sm border border-[var(--principal)]-300 rounded-md shadow-md focus:outline-none focus:ring focus:border-[var(--principal)] transition-all duration-500 ease-in-out 
+                                ${isSearchOpen ? 'w-72 opacity-100' : 'w-0 opacity-0'}
+                            `}
+                            autoFocus
+                            onBlur={() => setIsSearchOpen(false)}
+                        />
+                    </div>
 
-                {/* Menú de usuario en pantallas grandes */}
-                <div className="hidden lg:flex space-x-6 ml-auto"> {/* ml-auto para alinear a la derecha */}
-                    <button
-                        onClick={() => alert("Iniciar sesión")}
-                        className="px-4 py-2 rounded-full bg-[var(--indigo)] text-white hover:bg-white hover:text-[var(--indigo)] transition-colors dark:bg-[var(--indigo)] dark:text-white dark:hover:bg-white dark:hover:text-[var(--indigo)]"
-                    >
-                        Iniciar sesión
-                    </button>
-                    <button
-                        onClick={() => alert("Registrarse")}
-                        className="px-4 py-2 rounded-full bg-[var(--indigo)] text-white hover:bg-white hover:text-[var(--indigo)] transition-colors dark:bg-[var(--indigo)] dark:text-white dark:hover:bg-white dark:hover:text-[var(--indigo)]"
-                    >
-                        Registrarse
-                    </button>
-                </div>
-
-                {/* Botón de hamburguesa en pantallas pequeñas */}
-                <div className="lg:hidden">
-                    <button onClick={toggleMenu} className="focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
+                    {/* Login */}
+                    <a href="/login" className="text-white hover:text-[var(--principal)]">
+                        Login
+                    </a>
                 </div>
             </div>
-
-            {/* Menú desplegable en pantallas pequeñas */}
-            {menuOpen && (
-                <div className="lg:hidden bg-[var(--indigo)] text-white py-4 dark:bg-[var(--indigo)] dark:text-gray-100">
-                    <ul className="space-y-4 px-4">
-                        <li><a href="/" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Inicio</a></li>
-                        <li><a href="/about" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Acerca de</a></li>
-                        <li><a href="/contact" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Contacto</a></li>
-                        <li><a href="/cines" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Cines</a></li>
-                        <li><a href="/cartelera" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Cartelera</a></li>
-                        <li><a href="/tickets" className="block text-white hover:text-[var(--ghost-white)] px-3 py-2 transition-colors">Tickets</a></li>
-                        <li>
-                            <button
-                                onClick={() => alert("Iniciar sesión")}
-                                className="block w-full py-2 text-center bg-[var(--ghost-white)] text-[var(--indigo)] hover:bg-[var(--indigo)] hover:text-white dark:bg-[var(--ghost-white)] dark:text-[var(--indigo)] dark:hover:bg-[var(--indigo)] dark:hover:text-white transition-colors"
-                            >
-                                Iniciar sesión
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                onClick={() => alert("Registrarse")}
-                                className="block w-full py-2 text-center bg-[var(--ghost-white)] text-[var(--indigo)] hover:bg-[var(--indigo)] hover:text-white dark:bg-[var(--ghost-white)] dark:text-[var(--indigo)] dark:hover:bg-[var(--indigo)] dark:hover:text-white transition-colors"
-                            >
-                                Registrarse
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            )}
         </header>
-    );
-};
-
-export default Header;
+    )
+}
