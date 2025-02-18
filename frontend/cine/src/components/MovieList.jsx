@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
-import imagen from "../assets/PlaceHolder.jpg"
+import imagen from "../assets/PlaceHolder.webp";
+import trailer from "../assets/Rick Astley - Never Gonna Give You Up (Official Music Video).mp4"
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -24,15 +25,14 @@ const MovieList = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4 justify-items-center">
       {movies.map((movie) => (
         <MovieCard
           key={movie.id_pelicula}
           id={movie.id_pelicula}
           title={movie.titulo}
           posterUrl={imagen}
-          rating={movie.clasificacion}
-          trailerUrl={movie.trailer || null}
+          trailerUrl={trailer}
         />
       ))}
     </div>

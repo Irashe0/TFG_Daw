@@ -25,7 +25,7 @@ export default function Navbar() {
     }, [])
 
     return (
-        <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black to-transparent">
+        <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-[#778899] to-transparent dark:from-black dark:to-transparent">
             <div className="container mx-auto flex justify-between items-center h-16 px-4 sm:px-6">
 
                 {/* Logo */}
@@ -40,7 +40,6 @@ export default function Navbar() {
                         ? "flex flex-col absolute top-24 left-0 w-full bg-black bg-opacity-40 items-center justify-center transition-all duration-300 ease-in-out shadow-lg"
                         : "hidden"
                         } lg:flex lg:flex-row lg:items-center lg:space-x-6 lg:static lg:w-auto lg:bg-transparent lg:backdrop-none`}
-
                 >
                     {["Cines", "Cartelera"].map((item) => (
                         <a
@@ -59,7 +58,6 @@ export default function Navbar() {
                     </a>
                 </nav>
 
-
                 {/* Barra de búsqueda y Login en escritorio */}
                 <div className="flex items-center space-x-4">
                     {/* Barra de búsqueda */}
@@ -69,6 +67,7 @@ export default function Navbar() {
                             className="p-2 text-white hover:text-[var(--principal)] transition-all duration-300"
                             aria-label="Alternar búsqueda"
                         >
+
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"

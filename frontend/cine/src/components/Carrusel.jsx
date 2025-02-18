@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 const ImageCarousel = ({ images, interval = 200000000000 }) => { // Cambié el valor del intervalo a 20000ms (20 segundos)
   const [currentIndex, setCurrentIndex] = useState(0);
 
