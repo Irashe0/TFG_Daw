@@ -6,10 +6,10 @@ const MovieCard = ({ id, title, posterUrl, rating, trailerUrl }) => {
 
   return (
     <div className="relative group overflow-hidden rounded-md shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 w-48">
-      <img 
+      <img
         className="w-full h-60 object-cover"
         src={posterUrl || "./assets/placeholder.svg"} 
-        alt={`${title} poster`} 
+        alt={`${title} poster`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm">
@@ -21,20 +21,20 @@ const MovieCard = ({ id, title, posterUrl, rating, trailerUrl }) => {
             <span className="font-bold text-yellow-400 text-sm">{rating}</span>
           </div>
           <div className="flex flex-col space-y-1">
-            <button 
+            <button
               className="bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-semibold hover:bg-blue-600 transition"
               onClick={() => navigate(`/horarios/${id}`)}
             >
               Horarios
             </button>
-            <button 
+            <button
               className="bg-red-500 text-white text-xs px-3 py-1 rounded-full font-semibold hover:bg-red-600 transition"
               onClick={() => window.open(trailerUrl, "_blank")}
               disabled={!trailerUrl}
             >
               {trailerUrl ? "Tráiler" : "No Tráiler"}
             </button>
-            <button 
+            <button
               className="bg-gray-700 text-white text-xs px-3 py-1 rounded-full font-semibold hover:bg-gray-800 transition"
               onClick={() => navigate(`/peliculas/${id}`)}
             >
@@ -51,8 +51,8 @@ MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   posterUrl: PropTypes.string,
-  rating: PropTypes.number.isRequired,
-  trailerUrl: PropTypes.string
+  rating: PropTypes.string.isRequired,
+  trailerUrl: PropTypes.string,
 };
 
 export default MovieCard;

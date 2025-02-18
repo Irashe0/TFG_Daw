@@ -8,7 +8,9 @@ import PlaceHolder1 from './assets/Banner1.jpg';
 import PlaceHolder2 from './assets/Banner2.jpg';
 import PlaceHolder3 from './assets/Banner3.jpg';
 import PlaceHolder4 from './assets/Banner4.jpg';
-import MovieCard from './components/PeliculaCard';
+
+// Importa ListaPeliculas y otros componentes necesarios
+import ListaPeliculas from './components/MovieList';
 
 function App() {
   const images = [PlaceHolder1, PlaceHolder2, PlaceHolder3, PlaceHolder4];
@@ -19,10 +21,9 @@ function App() {
       <div className="relative">
         <ImageCarousel images={images} interval={3000} />
       </div>
-      <MovieCard/>
+      <ListaPeliculas /> 
       <Footer />
     </div>
-
   );
 }
 

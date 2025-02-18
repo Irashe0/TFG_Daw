@@ -15,40 +15,26 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\VentaController;
 
 // Rutas públicas
-Route::post('/registro', [AuthController::class, 'registro']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/registro', [AuthController::class, 'registro']); // Registro público
+Route::post('/login', [AuthController::class, 'login']); // Login público
+
+Route::get('/peliculas', [PeliculaController::class, 'index']); // Ruta pública para ver películas
+Route::get('/cines', [CineController::class, 'index']); // Ruta pública para ver cines
+Route::get('/horarios', [HorarioController::class, 'index']); // Ruta pública para ver horarios
+Route::get('/directores', [DirectorController::class, 'index']); // Ruta pública para ver directores
 
 // Rutas protegidas
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']); // Ruta de logout
 
     Route::middleware(['role:admin'])->group(function () {
         Route::apiResource('usuarios', UsuarioController::class);
         Route::apiResource('roles', RoleController::class);
         Route::apiResource('facturas', FacturaController::class);
         Route::apiResource('ventas', VentaController::class);
-
-        Route::post('salas', [SalaController::class, 'store']);
-        Route::post('horarios', [HorarioController::class, 'store']);
-        Route::post('cines', [CineController::class, 'store']);
-        Route::post('peliculas', [PeliculaController::class, 'store']);
-
-        Route::get('/admin/dashboard', function () {
-            return 'Panel de administración';
-        });
     });
 
-    Route::middleware(['role:editor'])->group(function () {
-        Route::put('peliculas/{pelicula}', [PeliculaController::class, 'update']);
-        Route::put('horarios/{horario}', [HorarioController::class, 'update']);
-    });
-
-    Route::apiResource('directores', DirectorController::class);
-    Route::apiResource('reservas', ReservaController::class);
-    Route::apiResource('notificaciones', NotificacionController::class);
-    Route::apiResource('salas', SalaController::class)->except(['store']);
-    Route::apiResource('horarios', HorarioController::class)->except(['store']);
-    Route::apiResource('cines', CineController::class)->except(['store']);
-    Route::apiResource('peliculas', PeliculaController::class)->except(['store', 'update']);
-
+    // Rutas de compras y reservas que requieren autenticación
+    Route::post('reservas', [ReservaController::class, 'store']); // Crear reserva
+    Route::post('comprar', [VentaController::class, 'store']); // Comprar entradas
 });
