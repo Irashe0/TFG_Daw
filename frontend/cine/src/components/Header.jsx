@@ -56,6 +56,10 @@ export default function Navbar() {
                     <a href="/login" className="text-white hover:text-[var(--principal)] py-2 px-4 lg:hidden">
                         Login
                     </a>
+
+                    <a href="/register" className="text-white hover:text-[var(--principal)] py-2 px-4 lg:hidden">
+                        Registro
+                    </a>
                 </nav>
 
                 {/* Barra de búsqueda y Login en escritorio */}
@@ -94,8 +98,12 @@ export default function Navbar() {
 
                     {/* Login en escritorio */}
                     <a href="/login" className="hidden lg:inline-block text-white hover:text-[var(--principal)]">
-                        Login
+                        Iniciar Sesión
                     </a>
+                    <a href="/register" className="hidden lg:inline-block text-white hover:text-[var(--principal)]">
+                        Registro
+                    </a>
+
 
                     {/* Botón para alternar el menú móvil */}
                     <button
