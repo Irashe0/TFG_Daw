@@ -14,13 +14,12 @@ use Illuminate\Database\Eloquent\Model;
  * Class Reserva
  * 
  * @property int $id_reserva
- * @property int $id_user
+ * @property int $id_miembro
  * @property int $id_horario
- * @property int $cantidad_entradas
- * @property Carbon|null $fecha_reserva
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * 
- * @property User $user
- * @property Horario $horario
+ * @property Collection|Butaca[] $butacas
  * @property Collection|Venta[] $ventas
  *
  * @package App\Models
@@ -29,30 +28,21 @@ class Reserva extends Model
 {
 	protected $table = 'reservas';
 	protected $primaryKey = 'id_reserva';
-	public $timestamps = false;
 
 	protected $casts = [
-		'id_user' => 'int',
-		'id_horario' => 'int',
-		'cantidad_entradas' => 'int',
-		'fecha_reserva' => 'datetime'
+		'id_miembro' => 'int',
+		'id_horario' => 'int'
 	];
 
 	protected $fillable = [
-		'id_user',
-		'id_horario',
-		'cantidad_entradas',
-		'fecha_reserva'
+		'id_miembro',
+		'id_horario'
 	];
 
-	public function user()
+	public function butacas()
 	{
-		return $this->belongsTo(User::class, 'id_user');
-	}
-
-	public function horario()
-	{
-		return $this->belongsTo(Horario::class, 'id_horario');
+		return $this->belongsToMany(Butaca::class, 'reservas_butacas', 'id_reserva', 'id_butaca')
+					->withTimestamps();
 	}
 
 	public function ventas()

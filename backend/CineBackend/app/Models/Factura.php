@@ -15,8 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_factura
  * @property int $id_venta
  * @property string $numero_factura
- * @property Carbon $fecha_emision
- * @property float $total_factura
+ * @property float $total
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * 
  * @property Venta $venta
  *
@@ -26,19 +27,16 @@ class Factura extends Model
 {
 	protected $table = 'facturas';
 	protected $primaryKey = 'id_factura';
-	public $timestamps = false;
 
 	protected $casts = [
 		'id_venta' => 'int',
-		'fecha_emision' => 'datetime',
-		'total_factura' => 'float'
+		'total' => 'float'
 	];
 
 	protected $fillable = [
 		'id_venta',
 		'numero_factura',
-		'fecha_emision',
-		'total_factura'
+		'total'
 	];
 
 	public function venta()

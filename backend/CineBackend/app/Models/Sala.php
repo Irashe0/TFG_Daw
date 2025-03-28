@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,8 +17,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_cine
  * @property string $nombre
  * @property int $capacidad
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * 
  * @property Cine $cine
+ * @property Collection|Butaca[] $butacas
  * @property Collection|Horario[] $horarios
  *
  * @package App\Models
@@ -26,7 +30,6 @@ class Sala extends Model
 {
 	protected $table = 'salas';
 	protected $primaryKey = 'id_sala';
-	public $timestamps = false;
 
 	protected $casts = [
 		'id_cine' => 'int',
@@ -42,6 +45,11 @@ class Sala extends Model
 	public function cine()
 	{
 		return $this->belongsTo(Cine::class, 'id_cine');
+	}
+
+	public function butacas()
+	{
+		return $this->hasMany(Butaca::class, 'id_sala');
 	}
 
 	public function horarios()

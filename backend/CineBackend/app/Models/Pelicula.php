@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $duracion
  * @property string|null $clasificacion
  * @property string|null $productora
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * 
  * @property Director|null $director
  * @property Collection|Horario[] $horarios
@@ -29,7 +32,6 @@ class Pelicula extends Model
 {
 	protected $table = 'peliculas';
 	protected $primaryKey = 'id_pelicula';
-	public $timestamps = false;
 
 	protected $casts = [
 		'id_director' => 'int',
@@ -42,8 +44,7 @@ class Pelicula extends Model
 		'sinopsis',
 		'duracion',
 		'clasificacion',
-		'productora',
-		'imagen'
+		'productora'
 	];
 
 	public function director()

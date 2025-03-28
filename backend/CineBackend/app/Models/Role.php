@@ -13,27 +13,32 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Role
  * 
- * @property int $id
- * @property string $name
+ * @property int $id_rol
+ * @property string $nombre_rol
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Collection|User[] $users
+ * @property Collection|Miembro[] $miembros
+ * @property Collection|Usuario[] $usuarios
  *
  * @package App\Models
  */
 class Role extends Model
 {
 	protected $table = 'roles';
+	protected $primaryKey = 'id_rol';
 
 	protected $fillable = [
-		'name'
+		'nombre_rol'
 	];
 
-	public function users()
+	public function miembros()
 	{
-		return $this->belongsToMany(User::class)
-					->withPivot('id')
-					->withTimestamps();
+		return $this->hasMany(Miembro::class, 'id_rol');
+	}
+
+	public function usuarios()
+	{
+		return $this->hasMany(Usuario::class, 'id_rol');
 	}
 }
